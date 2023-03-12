@@ -1,0 +1,55 @@
+.handsContainer {
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  color: 'white';
+  margin: 0;
+  display: flex;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  transform-origin: 0px 0px;
+  overflow: hidden;
+
+  /**
+  * Video element. Make sure it is flipped into selfie mode
+  */
+  .inputVideo {
+    display: none; /* Hide the original video element */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: scale(-1, 1);
+  }
+
+  .canvasContainer {
+    display:flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items:center;
+  }
+
+  /**
+   * The following styles are required to ensure the canvas is always
+   * the same size as the video element. It also overlays the canvas ontop of the video
+   */
+  .outputCanvas {
+    width: 100%;
+    display: block;
+    position: relative;
+    left: 0;
+    top: 0;
+    transform: scale(-1, 1); /* Flip the canvas horizontally */
+  }
+
+}
