@@ -96,6 +96,10 @@ export default function HandTracker({canvasWidth, canvasHeight, apiEndpoint}) {
       // remove image data from results
       const resultsNoImage = { ...results };
       delete resultsNoImage.image;
+      // re-add image width and height only (we really, really do not need this. please do not rely on this)
+      resultsNoImage.image = {};
+      resultsNoImage.image.width = results.image.width;
+      resultsNoImage.image.height = results.image.height;
 
       // send hand data to API endpoint
       fetch(apiEndpoint, {
