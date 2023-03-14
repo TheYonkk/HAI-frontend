@@ -1,0 +1,40 @@
+.lessonVideo {
+    height: 100%;
+    width: 100%;
+}
+
+.title {
+    position: absolute;
+    top: 2%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+}
+
+.textbox {
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    font-size: 20px;
+    text-align: center;
+    background-color: rgba(35, 143, 201, 0.7);
+    border-radius: 10px;
+    color: #fff;
+    width: 200px
+}
+
+.leftright {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 40%;
+    text-align: center;
+    background-color: #5B5B5B;
+    color: #fff;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}

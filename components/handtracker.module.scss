@@ -17,6 +17,8 @@
   top: 0;
   transform-origin: 0px 0px;
   overflow: hidden;
+  height: 100%;
+  // width: 100%;
 
   /**
   * Video element. Make sure it is flipped into selfie mode
@@ -44,7 +46,8 @@
    * the same size as the video element. It also overlays the canvas ontop of the video
    */
   .outputCanvas {
-    width: 100%;
+    height: 100%;
+    // width: 100%;
     display: block;
     position: relative;
     left: 0;
