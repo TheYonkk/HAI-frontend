@@ -42,6 +42,7 @@ const handtest = () => {
           canvasWidth={1280 / 2}
           canvasHeight={720 / 2}
           apiEndpoint={apiEndpointToSend}
+          gestureName="A"
         />
       </div>
     </div>

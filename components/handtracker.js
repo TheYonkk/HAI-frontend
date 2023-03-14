@@ -14,9 +14,10 @@ import styles from "./handtracker.module.scss";
  * @param {integer} canvasWidth The width of the canvas elementin pixels (video + overlay)
  * @param {integer} canvasHeight The height of the canvas element in pixels (video + overlay)
  * @param {string} apiEndpoint The endpoint of the API that will be used to send the hand data to
+ * @param {function} onSuccess A callback function that will be called when the backend API returns 
  * @returns 
  */
-export default function HandTracker({canvasWidth, canvasHeight, apiEndpoint}) {
+export default function HandTracker({canvasWidth, canvasHeight, apiEndpoint, gestureName, onSuccess}) {
   const [inputVideoReady, setInputVideoReady] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
@@ -100,6 +101,8 @@ export default function HandTracker({canvasWidth, canvasHeight, apiEndpoint}) {
       resultsNoImage.image = {};
       resultsNoImage.image.width = results.image.width;
       resultsNoImage.image.height = results.image.height;
+      // add guesture name
+      resultsNoImage.gesture = gestureName;
 
       // send hand data to API endpoint
       fetch(apiEndpoint, {
