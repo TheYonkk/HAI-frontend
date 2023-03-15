@@ -14,10 +14,16 @@ import styles from "./handtracker.module.scss";
  * @param {integer} canvasWidth The width of the canvas elementin pixels (video + overlay)
  * @param {integer} canvasHeight The height of the canvas element in pixels (video + overlay)
  * @param {string} apiEndpoint The endpoint of the API that will be used to send the hand data to
- * @param {function} onSuccess A callback function that will be called when the backend API returns 
- * @returns 
+ * @param {function} onSuccess A callback function that will be called when the backend API returns
+ * @returns
  */
-export default function HandTracker({canvasWidth, canvasHeight, apiEndpoint, gestureName, onSuccess}) {
+export default function HandTracker({
+  canvasWidth,
+  canvasHeight,
+  apiEndpoint,
+  gestureName,
+  onSuccess,
+}) {
   const [inputVideoReady, setInputVideoReady] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
@@ -90,10 +96,9 @@ export default function HandTracker({canvasWidth, canvasHeight, apiEndpoint, ges
    * @param {results} results
    */
   const onResults = (results) => {
-
     // send hand data to API endpoint if at least one hand is detected
     if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
-      
+
       // remove image data from results
       const resultsNoImage = { ...results };
       delete resultsNoImage.image;
@@ -102,7 +107,7 @@ export default function HandTracker({canvasWidth, canvasHeight, apiEndpoint, ges
       resultsNoImage.image.width = results.image.width;
       resultsNoImage.image.height = results.image.height;
       // add guesture name
-      resultsNoImage.gesture = gestureName;
+      resultsNoImage.gesture = gestureName ? gestureName : '';  // ensures that gestureName is a string sent to the API
 
       // send hand data to API endpoint
       fetch(apiEndpoint, {
@@ -111,30 +116,30 @@ export default function HandTracker({canvasWidth, canvasHeight, apiEndpoint, ges
           "Content-Type": "application/json",
         },
         body: JSON.stringify(resultsNoImage),
+      })
+        .then((response) => {
+          // successfully communicated with API endpoint
+          const contentType = response.headers.get("content-type");
+          if (contentType && contentType.indexOf("application/json") !== -1) {
+            // read async JSON response by creating async function and calling it
+            (async () => {
+              const json = await response.json();
+              console.log(json);
 
-      }).then((response) => {
-        // successfully communicated with API endpoint
-        const contentType = response.headers.get("content-type");
-        if (contentType && contentType.indexOf("application/json") !== -1) {
-          
-          // read async JSON response by creating async function and calling it
-          (async () => {
-            const json = await response.json();
-            console.log(json);
-          })();
-
-        } else {
-          console.log("API endpoint did not return JSON");
-        }
-
-      }).catch((error) => {
-        // error communicating with API endpoint
-        console.log(error);
-      });
-
+              // if the API returns true, then the gesture was accepted
+              if (json && json.accepted === 'True') {
+                onSuccess?.(); // call if onSuccess is defined
+              }
+            })();
+          } else {
+            console.log("API endpoint did not return JSON");
+          }
+        })
+        .catch((error) => {
+          // error communicating with API endpoint
+          console.log(error);
+        });
     }
-
-
 
     // wait until canvas is loaded (context is 2d canvas)
     if (canvasRef.current && contextRef.current) {
