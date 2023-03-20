@@ -98,7 +98,6 @@ export default function HandTracker({
   const onResults = (results) => {
     // send hand data to API endpoint if at least one hand is detected
     if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
-
       // remove image data from results
       const resultsNoImage = { ...results };
       delete resultsNoImage.image;
@@ -107,7 +106,7 @@ export default function HandTracker({
       resultsNoImage.image.width = results.image.width;
       resultsNoImage.image.height = results.image.height;
       // add guesture name
-      resultsNoImage.gesture = gestureName ? gestureName : '';  // ensures that gestureName is a string sent to the API
+      resultsNoImage.gesture = gestureName ? gestureName : ""; // ensures that gestureName is a string sent to the API
 
       // send hand data to API endpoint
       fetch(apiEndpoint, {
@@ -124,11 +123,69 @@ export default function HandTracker({
             // read async JSON response by creating async function and calling it
             (async () => {
               const json = await response.json();
-              console.log(json);
 
               // if the API returns true, then the gesture was accepted
-              if (json && json.accepted === 'True') {
+              if (json && json.accepted === "True") {
                 onSuccess?.(); // call if onSuccess is defined
+              }
+              console.log(json);
+
+              // the webcam image with a progress bar
+              if (canvasRef.current && contextRef.current) {
+                contextRef.current.save();
+                contextRef.current.clearRect(
+                  0,
+                  0,
+                  canvasRef.current.width,
+                  canvasRef.current.height
+                );
+                contextRef.current.drawImage(
+                  results.image,
+                  0,
+                  0,
+                  canvasRef.current.width,
+                  canvasRef.current.height
+                );
+
+                // draw progress bar
+                const barWidth = canvasRef.current.width / 2;
+                const barHeight = 20;
+                const error = json.error;
+                const tolerance = json.tolerance;
+                const maxError = 5000; // just guessing here?!?
+
+                // figure out how much of the progress bar to fill in
+                let barFill = 0;
+                if (error < tolerance) {
+                  barFill = 0;
+                } else if (error > maxError) {
+                  barFill = 1.0;
+                } else {
+                  barFill = (error - tolerance) / (maxError - tolerance);
+                }
+
+                // draw a centered progress bar on the bottom of the screen that closes in towrads the center of the screen as the error decreases
+                contextRef.current.save();
+
+                // draw the background bar
+                contextRef.current.fillStyle = "rgba(0, 0, 0, 0.5)";
+                contextRef.current.fillRect(
+                  canvasRef.current.width / 2 - barWidth / 2,
+                  canvasRef.current.height - barHeight * 2,
+                  barWidth,
+                  barHeight
+                );
+
+                // draw the progress bar, centered in the background bar
+                contextRef.current.fillStyle = "rgba(35, 143, 201, 0.7)";
+                contextRef.current.fillRect(
+                  canvasRef.current.width / 2 - (barWidth * barFill) / 2,
+                  canvasRef.current.height - barHeight * 2,
+                  (barWidth * barFill) / 1,
+                  barHeight
+                );
+
+                contextRef.current.restore();
               }
             })();
           } else {
@@ -138,56 +195,43 @@ export default function HandTracker({
         .catch((error) => {
           // error communicating with API endpoint
           console.log(error);
+
+          // just draw the webcam image
+          if (canvasRef.current && contextRef.current) {
+            contextRef.current.save();
+            contextRef.current.clearRect(
+              0,
+              0,
+              canvasRef.current.width,
+              canvasRef.current.height
+            );
+            contextRef.current.drawImage(
+              results.image,
+              0,
+              0,
+              canvasRef.current.width,
+              canvasRef.current.height
+            );
+          }
         });
-    }
-
-    // wait until canvas is loaded (context is 2d canvas)
-    if (canvasRef.current && contextRef.current) {
-      setLoaded(true);
-
-      // clear canvas
-      contextRef.current.save();
-      contextRef.current.clearRect(
-        0,
-        0,
-        canvasRef.current.width,
-        canvasRef.current.height
-      );
-      contextRef.current.drawImage(
-        results.image,
-        0,
-        0,
-        canvasRef.current.width,
-        canvasRef.current.height
-      );
-
-      // draw hands
-      if (results.multiHandLandmarks && results.multiHandedness) {
-        // iterate through each hand
-        for (
-          let index = 0;
-          index < results.multiHandLandmarks.length;
-          index++
-        ) {
-          // draw the hand landmarks and connections
-          const classification = results.multiHandedness[index];
-          const isRightHand = classification.label === "Right";
-          const landmarks = results.multiHandLandmarks[index];
-          drawConnectors(contextRef.current, landmarks, HAND_CONNECTIONS, {
-            color: isRightHand ? "#00FF00" : "#FF0000",
-          });
-          drawLandmarks(contextRef.current, landmarks, {
-            color: isRightHand ? "#00FF00" : "#FF0000",
-            fillColor: isRightHand ? "#FF0000" : "#00FF00",
-            radius: (data) => {
-              return lerp(data.from.z, -0.15, 0.1, 10, 1);
-            },
-          });
-        }
+    } else {
+      // no hand data, so just draw the webcam image
+      if (canvasRef.current && contextRef.current) {
+        contextRef.current.save();
+        contextRef.current.clearRect(
+          0,
+          0,
+          canvasRef.current.width,
+          canvasRef.current.height
+        );
+        contextRef.current.drawImage(
+          results.image,
+          0,
+          0,
+          canvasRef.current.width,
+          canvasRef.current.height
+        );
       }
-
-      // restore canvas
-      contextRef.current.restore();
     }
   };
 

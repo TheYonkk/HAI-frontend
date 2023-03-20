@@ -31,15 +31,15 @@ export default function Home() {
         </section>
         <section className="halfbox">
           <HandTracker
-            canvasWidth={540}
-            canvasHeight={360}
+            canvasWidth={1280 / 2}
+            canvasHeight={720 / 2}
             apiEndpoint={apiEndpoint}
             gestureName="A"
             onSuccess={onSuccess}
           />
           <HandCheck
             message={ gestureAccepted ? "Congratulations! You signed “A”!" :
-              "Almost there! Move your thumb towards your fist to sign “A”!"
+              "Try to minimize the error bar on the bottom."
             }
           />
         </section>
