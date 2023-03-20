@@ -129,7 +129,7 @@ export default function HandTracker({
               if (json && json.accepted === "True") {
                 onSuccess?.(); // call if onSuccess is defined
               }
-              // console.log(json);
+              console.log(json);
 
               // the webcam image with a progress bar
               if (canvasRef.current && contextRef.current) {
@@ -153,7 +153,7 @@ export default function HandTracker({
                 const barHeight = 20;
                 const error = json.error;
                 const tolerance = json.tolerance;
-                const maxError = 5000; // just guessing here?!?
+                const maxError = 1.0; // just guessing here?!?
 
                 // figure out how much of the progress bar to fill in
                 let barFill = 0;
