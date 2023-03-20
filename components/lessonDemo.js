@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./lessonDemo.module.css";
 
-export default function LessonDemo({videoLink, lessonTitle}) {
+export default function LessonDemo({videoLink, lessonTitle, handDominant}) {
+    console.log(handDominant)
     return (<>
             <h2 className={styles.title}>{lessonTitle}</h2>
             {/* <iframe 
@@ -11,10 +12,12 @@ export default function LessonDemo({videoLink, lessonTitle}) {
                 frameborder="0"
                 className={styles.lessonVideo}
             >
-             </iframe> */}
-            <video width="100%" autoPlay muted loop>
-                <source src={videoLink} type="video/mp4"/>
-            </video>
+             </iframe> 
+             <React.Fragment key={this.props.src}>
+                <video src={this.props.src} />
+                </React.Fragment>*/
+             }
+            <video width='100%' autoPlay muted loop className={handDominant ? styles.flipVid : ''} src={videoLink} />
         </>
     )
 }

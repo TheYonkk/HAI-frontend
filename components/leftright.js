@@ -1,34 +1,16 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import styles from "./lessonDemo.module.css";
 
-// const style = {
-//   position: 'absolute',
-//   top: '50%',
-//   left: '50%',
-//   transform: 'translate(-50%, -50%)',
-//   width: '50%',
-//   bgcolor: 'background.paper',
-//   border: '2px solid #000',
-//   boxShadow: 24,
-//   p: 4,
-//   textAlign: 'center',
-// };
 
-export default function LeftRightModal() {
+const LeftRightModal = ({chooseHand}) => {
   const [open, setOpen] = React.useState(true);
-//   const handleOpen = () => setOpen(false);
-  const [hand, setHand] = React.useState('');
-//   const handleClose = () => setOpen(false);
 
-    const handleOpen = (event) => {
-        setHand(event.target.innerText);
+    const handleOpen = () => {
         setOpen(false);
     }
-    // also return hand to parent component
   return (
     <div>
       <Modal
@@ -36,20 +18,26 @@ export default function LeftRightModal() {
         // onClose={handleClose}
       >
         <Box className={styles.leftright}>
-          <h2>What hand is your dominant hand?</h2>
+          <h2>Which is your dominant hand?</h2>
           <div>
             <Button
-                onClick={handleOpen}
-                variant="contained"
-                sx={{
-                    margin: '5% 7%',
-                    padding: '5% 7%',
-                    borderRadius: '10px',
+              onClick={() => {
+                handleOpen();
+                chooseHand(true);
+              }}
+              variant="contained"
+              sx={{
+                margin: '5% 7%',
+                padding: '5% 7%',
+                borderRadius: '10px',
             }}>
                 Left
             </Button>
             <Button 
-                onClick={handleOpen}
+              onClick={() => {
+                handleOpen();
+                chooseHand(false);
+              }}
                 variant="contained" 
                 sx={{
                     margin: '5% 7%',
@@ -64,3 +52,4 @@ export default function LeftRightModal() {
     </div>
   );
 }
+export default LeftRightModal;

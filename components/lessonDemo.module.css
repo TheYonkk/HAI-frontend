@@ -9,6 +9,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 40px;
+    z-index: 10;
 }
 
 .textbox {
@@ -37,4 +38,8 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+}
+
+.flipVid {
+    transform: rotateY(180deg);
 }
