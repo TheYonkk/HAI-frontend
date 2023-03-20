@@ -15,6 +15,7 @@ import styles from "./handtracker.module.scss";
  * @param {integer} canvasHeight The height of the canvas element in pixels (video + overlay)
  * @param {string} apiEndpoint The endpoint of the API that will be used to send the hand data to
  * @param {function} onSuccess A callback function that will be called when the backend API returns
+ * @param {string} gestureName The name of the gesture to be tracked
  * @returns
  */
 export default function HandTracker({
@@ -85,11 +86,11 @@ export default function HandTracker({
 
       // remove the event listener when the component is unmounted
       return () => {
-        hands.onResults(() => {});
+        // hands.onResults(() => {});
         hands.close();
       };
     }
-  }, [inputVideoReady, apiEndpoint]); // needs apiEndpoint to be in dependency array so that useEffect is called when apiEndpoint changes and the onResults is updated
+  }, [inputVideoReady, apiEndpoint, gestureName]); // needs apiEndpoint to be in dependency array so that useEffect is called when apiEndpoint changes and the onResults is updated
 
   /**
    * Callback for when MediaPipe finishes processing the video stream and has some results for us.
@@ -128,7 +129,7 @@ export default function HandTracker({
               if (json && json.accepted === "True") {
                 onSuccess?.(); // call if onSuccess is defined
               }
-              console.log(json);
+              // console.log(json);
 
               // the webcam image with a progress bar
               if (canvasRef.current && contextRef.current) {
