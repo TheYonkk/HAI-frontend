@@ -8,6 +8,8 @@ import {
 } from "@mediapipe/drawing_utils";
 import styles from "./handtracker.module.scss";
 
+const MAX_HAND_ERROR = 3.5;  // max error for the error bar
+
 /**
  * A React component that uses MediaPipe to track the user's hands and draw the hand landmarks and connections on a canvas element.
  * The component also sends the hand data to an API endpoint.
@@ -153,16 +155,15 @@ export default function HandTracker({
                 const barHeight = 20;
                 const error = json.error;
                 const tolerance = json.tolerance;
-                const maxError = 1.0; // just guessing here?!?
 
                 // figure out how much of the progress bar to fill in
                 let barFill = 0;
                 if (error < tolerance) {
                   barFill = 0;
-                } else if (error > maxError) {
+                } else if (error > MAX_HAND_ERROR) {
                   barFill = 1.0;
                 } else {
-                  barFill = (error - tolerance) / (maxError - tolerance);
+                  barFill = (error - tolerance) / (MAX_HAND_ERROR - tolerance);
                 }
 
                 // draw a centered progress bar on the bottom of the screen that closes in towrads the center of the screen as the error decreases
