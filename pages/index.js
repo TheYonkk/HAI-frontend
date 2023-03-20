@@ -61,12 +61,14 @@ export default function Home() {
               "Try to minimize the error bar on the bottom."
             }
           />
-          {(!gestureAccepted) && <Button
+          {(gestureAccepted) && <Button
             variant="contained"
             className="nextButton"
             onClick={() => {
               nextLesson();
             }}
+            sx={{position: 'absolute',
+              padding: '20px' }}
         >Next Lesson</Button>}
         </section>
       </section>
