@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./lessonDemo.module.css";
 
 export default function LessonDemo({videoLink, lessonTitle, handDominant}) {
-    console.log(handDominant)
     return (<>
             <h2 className={styles.title}>{lessonTitle}</h2>
             {/* <iframe 
