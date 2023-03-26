@@ -8,7 +8,7 @@ import {
 } from "@mediapipe/drawing_utils";
 import styles from "./handtracker.module.scss";
 
-const MAX_HAND_ERROR = 3.5;  // max error for the error bar
+const MAX_HAND_ERROR = 3.5; // max error for the error bar
 
 /**
  * A React component that uses MediaPipe to track the user's hands and draw the hand landmarks and connections on a canvas element.
@@ -18,6 +18,7 @@ const MAX_HAND_ERROR = 3.5;  // max error for the error bar
  * @param {string} apiEndpoint The endpoint of the API that will be used to send the hand data to
  * @param {function} onSuccess A callback function that will be called when the backend API returns
  * @param {string} gestureName The name of the gesture to be tracked
+ * @param {boolean} showHandMarkers Whether or not to show the hand markers
  * @returns
  */
 export default function HandTracker({
@@ -26,6 +27,7 @@ export default function HandTracker({
   apiEndpoint,
   gestureName,
   onSuccess,
+  showHandMarkers = true,
 }) {
   const [inputVideoReady, setInputVideoReady] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -92,7 +94,7 @@ export default function HandTracker({
         hands.close();
       };
     }
-  }, [inputVideoReady, apiEndpoint, gestureName]); // needs apiEndpoint to be in dependency array so that useEffect is called when apiEndpoint changes and the onResults is updated
+  }, [inputVideoReady, apiEndpoint, gestureName, showHandMarkers]); // needs apiEndpoint to be in dependency array so that useEffect is called when apiEndpoint changes and the onResults is updated
 
   /**
    * Callback for when MediaPipe finishes processing the video stream and has some results for us.
@@ -131,7 +133,7 @@ export default function HandTracker({
               if (json && json.accepted === "True") {
                 onSuccess?.(); // call if onSuccess is defined
               }
-              console.log(json);
+              // console.log(json);
 
               // the webcam image with a progress bar
               if (canvasRef.current && contextRef.current) {
@@ -149,6 +151,35 @@ export default function HandTracker({
                   canvasRef.current.width,
                   canvasRef.current.height
                 );
+
+                // if showHandMarkers is true, then draw the hand markers
+                if (showHandMarkers) {
+                  for (
+                    let index = 0;
+                    index < results.multiHandLandmarks.length;
+                    index++
+                  ) {
+                    const landmarks = results.multiHandLandmarks[index];
+                    const classification = results.multiHandedness[index];
+                    const isRightHand = classification.label === "Right";
+                    drawConnectors(
+                      contextRef.current,
+                      landmarks,
+                      HAND_CONNECTIONS,
+                      { 
+                        color: "rgba(102, 163, 196, 0.75)", 
+                        lineWidth: 2,
+                      }
+                    );
+                    drawLandmarks(contextRef.current, landmarks, {
+                      fillColor: "rgba(26, 107, 150, 0.75)",
+                      color: "rgba(102, 163, 196, 0.5)",
+                      radius: (data) => {
+                        return lerp(data.from.z, -0.15, 0.1, 6, 1);
+                      },
+                    });
+                  }
+                }
 
                 // draw progress bar
                 const barWidth = canvasRef.current.width / 2;
