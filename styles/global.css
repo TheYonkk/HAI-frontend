@@ -1,13 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500&display=swap');
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Mukta', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   line-height: 1.6;
   font-size: 18px;
-  background-color: #DFDFDF;
+  background-color: #FFFFFD;
+  color: #4D5472;
 }
 
 * {
@@ -34,6 +37,288 @@ h1 {
   margin-top: 1.5rem;
 }
 
+.landing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.landTitle {
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 55pt;
+  color: #93ACCE;
+  font-weight: 100;
+  margin: 0;
+}
+
+.tagline {
+  font-size: 14pt;
+  color: #42508B;
+  font-weight: 500;
+  margin: 0;
+  line-height: 0pt;
+  letter-spacing: 4px;
+}
+
+.landWelcome{
+  display: flex; 
+  justify-content: center;
+  align-items: baseline;
+  max-width: 65%;
+  margin: 100px auto;
+}
+
+.landWelcome img{
+  width: 8%;
+  margin: .7%;
+}
+
+.landWelcome img:first-of-type {
+  width: 10.5%;
+}
+
+.landWelcome img:nth-of-type(2){
+  width: 7.5%;
+}
+
+.landWelcome img:nth-of-type(4){
+  width: 7.4%;
+}
+
+.landWelcome img:nth-of-type(5){
+  margin-right: 3.2%;
+}
+
+.landWelcome img:nth-of-type(6){
+  width: 8.2%;
+}
+
+.landWelcome img:nth-of-type(7){
+  width: 8.65%;
+  margin-right: 3.2%;
+}
+
+.landWelcome img:nth-of-type(8){
+  width: 8.2%;
+}
+
+.landWelcome img:nth-of-type(10){
+  width: 12%;
+  margin-left: .5%;
+}
+
+/* interesting hover effect */
+/*
+.word {
+  display: flex;
+  align-items: center;
+  max-width: 500px;
+  margin: auto;
+}
+.landWelcome .hover {
+  flex: 1;
+  display: grid;
+  grid: repeat(2, 2fr) / 100%;
+  position: relative;
+  height: calc(100vh - 10em);
+}
+.landWelcome .hover div {
+  position: relative;
+  z-index: 5;
+}
+.landWelcome .hover div:first-child:hover ~ img {
+  margin-top: -10px;
+}
+.landWelcome .hover div:nth-child(2):hover ~ img {
+  margin-top: -50px;
+}
+.landWelcome img {
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 50%;
+  margin-top: -30px;
+  transition: 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: 0;
+}*/
+
+/* img group
+.landWelcome img:first-of-type{
+  /*height: 100%;
+  width: 45%;
+  margin-right: 5%;
+}
+
+.landWelcome img:nth-of-type(2){
+  /*height: 72.2%;
+  width: 17.5%;
+} */
+
+/* .landWelcome img:last-of-type{
+  /*height: 77%;
+  width: 38.5%;
+  margin-left: 5%;
+} */
+
+.landWelcome img{
+  opacity: 0;
+  top: 1em;
+	animation: animateOverlay 1s ease-in-out forwards;
+}
+.landWelcome img:nth-child(4n) {
+   animation-delay: 0.3s;
+}
+.landWelcome img:nth-child(4n+2) { 
+  animation-delay: .8s; 
+}
+.landWelcome img:nth-child(4n+1) { 
+  animation-delay: 1.3s; 
+}
+.landWelcome img:nth-child(4n+3) { 
+  animation-delay: 1.8s; 
+}
+
+@keyframes animateOverlay {
+  100% {
+    opacity: 1;
+    top: 0;
+  }
+}
+
+.landButtons {
+  /* width: 50%;
+  height: auto;
+  /* padding: 0 1rem;
+  margin: 2rem auto; 
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden; */
+  display: flex;
+  position: relative;
+  /* justify-content: center;
+  align-items: center; */
+  /* margin: auto; */
+  width: 80%;
+  overflow: hidden;
+}
+
+.landWrapper {
+  /* position: absolute; */
+  display: grid;
+  margin: 0 auto;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1.6fr;
+  width: 50%;
+  transform: translate(0, 100%);
+  /* left: -500px; */
+  /* bottom: -20%;
+  left: 50%;
+  transform: translateX(-50%) translateY(0); */
+  -webkit-animation: slide 1s forwards ease-in-out;
+  -webkit-animation-delay: 2s;
+  animation: slide 1s forwards ease-in-out;
+  animation-delay: 2s;
+}
+
+.landButtons p {
+  grid-column: 1 / span 2;
+  text-align: center;
+}
+
+.landButtons button {
+  border: none;
+  border-radius: 10px;
+  width: 80%;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #fff;
+  background-color: #7AB2D1;
+  justify-self: center;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+
+/* 
+@-webkit-keyframes slide {
+  100% { left: 0; }
+}
+*/
+@keyframes slide {
+  100% { 
+    transform: translate(0, 0);
+  }
+} 
+
+@keyframes slide-opacity {
+  100% { 
+    opacity: 1;
+  }
+}
+
+#left {
+  margin-left: 20px;
+  background-image: url(/images/landing/left-1.png);
+  background-size: contain;  
+  background-repeat: no-repeat;
+  background-position: center center; 
+  transition: background-image 0.5s ease-in-out;
+  cursor: pointer;
+  opacity: 0;
+  animation: slide-opacity 1s forwards ease-in;
+  animation-delay: 2.5s;
+}
+
+#right {
+  margin-right: 20px;
+  background-image: url(/images/landing/right-1.png);
+  background-size: contain;  
+  background-repeat: no-repeat;
+  background-position: center center;
+  transition: background-image 0.5s ease-in-out;
+  cursor: pointer;
+  opacity: 0;
+  animation: slide-opacity 1s forwards ease-in;
+  animation-delay: 2.5s;
+}
+
+#left:hover {
+  background-image: url(/images/landing/left-2.png);
+  /* background-size: contain;  
+  background-repeat: no-repeat;
+  background-position: center center;    */
+  /* animation: .5s forwards ease-in-out; */
+}
+
+#right:hover {
+  background-image: url(/images/landing/right-2.png);
+  /* background-size: contain;  
+  background-repeat: no-repeat;
+  background-position: center center;    */
+  /* animation: changeImage .5s forwards ease-in-out; */
+}
+
+/* @keyframes changeImage {
+  100% {
+    background-image: url(/images/landing/left-2.png);
+    background-size: contain;  
+    background-repeat: no-repeat;
+    background-position: center center;   
+  }
+} */
+
+
+
+/*lesson page*/
 .lesson {
   display: grid;
   align-items: center;
