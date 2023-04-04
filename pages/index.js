@@ -3,7 +3,7 @@ import Head from "next/head";
 // import utilStyles from "../styles/utils.module.css";
 // import HandTracker from "../components/handtracker";
 // import styles from "./handtest.module.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // import LessonDemo from "../components/lessonDemo";
 // import HandCheck from "../components/handcheck";
 // import LeftRightModal from "../components/leftright";
@@ -20,6 +20,11 @@ export default function Home() {
   // const [lesson, setLesson] = useState(0);
   const [startLesson, setStartLesson] = useState(false);
 
+  useEffect(() => {
+    const item = localStorage.getItem('handDominant');
+    item ? setHandDominant(item) : setHandDominant(null);
+  }, [])
+ 
   const onSuccess = () => {
     setGestureAccepted(true);
   };
@@ -77,19 +82,19 @@ export default function Home() {
 
         <div className="landButtons">
           <div className="landWrapper">
-            
             <p>Welcome to <i>Talk to the Hand</i>- your go-to resource for learning ASL. Let's get started by identifying your dominant hand!</p>
-            
             {/* <button>Left</button>
             <button>Right</button> */}
             <div 
             id="left"
             onClick={() => {
+              localStorage.setItem('handDominant', JSON.stringify(true));
               setHandDominant(true);
               setStartLesson(true);
             }}></div>
             <div id="right"
             onClick={() => {
+              localStorage.setItem('handDominant', JSON.stringify(false));
               setHandDominant(false);
               setStartLesson(true);
             }}></div>

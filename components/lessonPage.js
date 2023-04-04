@@ -3,7 +3,7 @@
 // import utilStyles from "../styles/utils.module.css";
 import HandTracker from "../components/handtracker";
 // import styles from "./handtest.module.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LessonDemo from "../components/lessonDemo";
 import HandCheck from "../components/handcheck";
 // import LeftRightModal from "../components/leftright";
@@ -13,6 +13,7 @@ import Button from "@mui/material/Button";
 
 export default function LessonPage({handDominant, onSuccess, lessonList, apiEndpoint, showHandMarkers, setShowHandMarkers, gestureAccepted, setGestureAccepted}) {
   const [lesson, setLesson] = useState(0);
+  const [timeUp, setTimeUp] = useState(false);
   
   const nextLesson = () => {
     setGestureAccepted(false);
@@ -23,7 +24,27 @@ export default function LessonPage({handDominant, onSuccess, lessonList, apiEndp
       setLesson(lesson + 1);
     }
   };
-    return (<>
+  useEffect(() => {
+    let time = null;
+    if (!timeUp) {
+      time = setTimeout(() => setTimeUp(true), 10000);
+    }
+    return () => clearTimeout(time);
+  }, [timeUp]);
+
+  useEffect(() => {
+    let timer = null;
+    if (gestureAccepted) {
+      timer = setTimeout(() => {
+        console.log("next lesson");
+        nextLesson();
+      }, 5000);
+
+    }
+    return () => clearTimeout(timer);
+  }, [gestureAccepted, nextLesson]);
+
+  return (<>
     <h1>Lesson {lesson + 1}: Alphabets</h1>
       <section className="lesson">
         <section className="halfbox">
@@ -63,18 +84,32 @@ export default function LessonPage({handDominant, onSuccess, lessonList, apiEndp
             label="Show Hand Markers"
             sx={{position: "absolute", top: "20px", color: "white"}}
           />
-
-          {gestureAccepted && (
-            <Button
-              variant="contained"
-              className="nextButton"
+          {(timeUp && !gestureAccepted) && (
+              <button className="nextButton"  
               onClick={() => {
-                nextLesson();
-              }}
-              sx={{ position: "absolute", padding: "20px" }}
-            >
-              Next Lesson
-            </Button>
+                  nextLesson();
+                  setTimeUp(false);
+                  //timer();
+              }}>Skip</button>
+            )}
+          {gestureAccepted && (
+            // <Button
+            //   variant="contained"
+            //   className="nextButton"
+            //   onClick={() => {
+            //     nextLesson();
+            //   }}
+            //   sx={{ position: "absolute", padding: "20px" }}
+            // >
+            //   Next Lesson
+            // </Button>
+            // when timer is up, show next lesson button
+            <button className="playflix-button" 
+              data-label="Next Lesson" 
+              onClick={() => {
+                  nextLesson();
+                  setTimeUp(false);
+              }}></button>
           )}
         </section>
       </section>

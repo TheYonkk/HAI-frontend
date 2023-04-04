@@ -175,16 +175,16 @@ h1 {
 	animation: animateOverlay 1s ease-in-out forwards;
 }
 .landWelcome img:nth-child(4n) {
-   animation-delay: 0.3s;
+   animation-delay: 0.2s;
 }
 .landWelcome img:nth-child(4n+2) { 
-  animation-delay: .8s; 
+  animation-delay: .6s; 
 }
 .landWelcome img:nth-child(4n+1) { 
-  animation-delay: 1.3s; 
+  animation-delay: 1s; 
 }
 .landWelcome img:nth-child(4n+3) { 
-  animation-delay: 1.8s; 
+  animation-delay: 1.4s; 
 }
 
 @keyframes animateOverlay {
@@ -226,8 +226,8 @@ h1 {
   transform: translateX(-50%) translateY(0); */
   -webkit-animation: slide 1s forwards ease-in-out;
   -webkit-animation-delay: 2s;
-  animation: slide 1s forwards ease-in-out;
-  animation-delay: 2s;
+  animation: slide 0.8s forwards ease-in-out;
+  animation-delay: 1.5s;
 }
 
 .landButtons p {
@@ -274,8 +274,8 @@ h1 {
   transition: background-image 0.5s ease-in-out;
   cursor: pointer;
   opacity: 0;
-  animation: slide-opacity 1s forwards ease-in;
-  animation-delay: 2.5s;
+  animation: slide-opacity .8s forwards ease-in;
+  animation-delay: 2s;
 }
 
 #right {
@@ -287,8 +287,8 @@ h1 {
   transition: background-image 0.5s ease-in-out;
   cursor: pointer;
   opacity: 0;
-  animation: slide-opacity 1s forwards ease-in;
-  animation-delay: 2.5s;
+  animation: slide-opacity .8s forwards ease-in;
+  animation-delay: 2.3s;
 }
 
 #left:hover {
@@ -347,13 +347,130 @@ h1 {
 }
 
 .nextButton {
-  padding: 20px;
-  border-radius: 10px;
   position: absolute;
-  bottom: 30px;
-  background: #2688a1;
+  bottom: 10px;
+  right: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: #dba32a;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .nextButton:hover {
-  background: #1a5867;
+  background: #dec868;
 }
+
+.playflix-button {
+  /* padding: 20px; */
+  font-family: 'Montserrat', sans-serif;
+  border-radius: 10px;
+  position: absolute;
+  bottom: 30px;
+  display: flex;
+  font-size: 0.75em;
+  height: 3.5em;
+  /* border-radius: 0.25em; */
+  /* background-color: #2688a1; */
+  background-color: #589fc4;
+  color: #fff;
+  overflow: hidden;
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s;
+  /* animation: playflix-text 5s linear infinite forwards; */
+}
+
+.playflix-button:hover {
+  background-color: #196994;
+}
+/* .playflix-button:active {
+  color: #171332;
+}  */
+/* .playflix-button:active, .playflix-button:active:after, .playflix-button:active:before {
+  animation: none;
+} */
+/* .playflix-button:active:before {
+  background-color: saturate(darken(#4ae3b5, 15%), 10%);
+  width: calc(100% + 1em);
+  counter-reset: playflix-counter 0;
+} */
+.playflix-button:before, .playflix-button:after {
+  pointer-events: none;
+}
+.playflix-button:before {
+  content: '';
+  /* font-size: 2em;
+  line-height: 1.2; */
+  position: absolute;
+  width: 0%;
+  height: 100%;
+  left: -0.5em;
+  top: 0;
+  z-index: 0;
+  /* text-align: left; */
+  padding: 0.25em;
+  text-indent: 0.5em;
+  animation: playflix 5s linear infinite forwards;
+}
+.playflix-button:after {
+  content: attr(data-label);
+  /* font-weight: 700; */
+  display: block;
+  font-size: 1.3em;
+  line-height: 1.7;
+  padding: 0.5em;
+  position: relative;
+  white-space: nowrap;
+  /* animation: playflix-countdown 5s linear infinite forwards; */
+}
+
+/* .playflix-button[data-icon]:not([data-icon=""]):after {
+  padding-left: 2em;
+} */
+
+@keyframes playflix {
+  0% {
+    width: 0%;
+    background-color: #36bee0;
+ }
+  100% {
+    width: calc(100% + .5em);
+    background-color: #36bee0;
+ }
+  /* 89.5%, 100% {
+    width: calc(100% + .5em);
+    background-color: green;
+ } */
+}
+/* @keyframes playflix-countdown {
+  0% {
+    counter-increment: playflix-counter 0;
+ }
+  20% {
+    counter-increment: playflix-counter -1;
+ }
+  40% {
+    counter-increment: playflix-counter -2;
+ }
+  60% {
+    counter-increment: playflix-counter -3;
+ }
+  80% {
+    counter-increment: playflix-counter -4;
+ }
+  100% {
+    counter-increment: playflix-counter -5;
+ }
+} */
+/* @keyframes playflix-text {
+  0%, 89% {
+    color: lightblue;
+ }
+  89.5%, 100% {
+    color: white;
+ }
+} */
