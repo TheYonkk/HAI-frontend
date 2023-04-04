@@ -1,4 +1,4 @@
-.lessonVideo {
+.lessonImage {
     height: 100%;
     width: 100%;
 }
@@ -42,4 +42,8 @@
 
 .flipVid {
     transform: rotateY(180deg);
+}
+
+.flipImage {
+    transform: scaleX(-1);
 }

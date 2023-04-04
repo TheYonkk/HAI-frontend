@@ -10,20 +10,29 @@ import HandCheck from "../components/handcheck";
 import { Switch, FormControlLabel } from "@mui/material";
 import Button from "@mui/material/Button";
 
-
-export default function LessonPage({handDominant, onSuccess, lessonList, apiEndpoint, showHandMarkers, setShowHandMarkers, gestureAccepted, setGestureAccepted}) {
+export default function LessonPage({
+  handDominant,
+  onSuccess,
+  lessonList,
+  apiEndpoint,
+  showHandMarkers,
+  setShowHandMarkers,
+  gestureAccepted,
+  setGestureAccepted,
+}) {
   const [lesson, setLesson] = useState(0);
   const [timeUp, setTimeUp] = useState(false);
-  
+
   const nextLesson = () => {
     setGestureAccepted(false);
     // console.log(lesson);
-    if (lesson === 2) {
+    if (lesson === lessonList.length - 1) {
       setLesson(0);
     } else {
       setLesson(lesson + 1);
     }
   };
+
   useEffect(() => {
     let time = null;
     if (!timeUp) {
@@ -39,18 +48,17 @@ export default function LessonPage({handDominant, onSuccess, lessonList, apiEndp
         console.log("next lesson");
         nextLesson();
       }, 5000);
-
     }
     return () => clearTimeout(timer);
   }, [gestureAccepted, nextLesson]);
 
-  return (<>
-    <h1>Lesson {lesson + 1}: Alphabets</h1>
+  return (
+    <>
+      <h1>Lesson {lesson + 1}: Alphabets</h1>
       <section className="lesson">
         <section className="halfbox">
           {handDominant !== null && (
             <LessonDemo
-              videoLink={`/images/lesson${lesson + 1}.mov`}
               lessonTitle={lessonList[lesson]}
               handDominant={handDominant}
             />
@@ -82,16 +90,20 @@ export default function LessonPage({handDominant, onSuccess, lessonList, apiEndp
               />
             }
             label="Show Hand Markers"
-            sx={{position: "absolute", top: "20px", color: "white"}}
+            sx={{ position: "absolute", top: "20px", color: "white" }}
           />
-          {(timeUp && !gestureAccepted) && (
-              <button className="nextButton"  
+          {timeUp && !gestureAccepted && (
+            <button
+              className="nextButton"
               onClick={() => {
-                  nextLesson();
-                  setTimeUp(false);
-                  //timer();
-              }}>Skip</button>
-            )}
+                nextLesson();
+                setTimeUp(false);
+                //timer();
+              }}
+            >
+              Skip
+            </button>
+          )}
           {gestureAccepted && (
             // <Button
             //   variant="contained"
@@ -104,15 +116,17 @@ export default function LessonPage({handDominant, onSuccess, lessonList, apiEndp
             //   Next Lesson
             // </Button>
             // when timer is up, show next lesson button
-            <button className="playflix-button" 
-              data-label="Next Lesson" 
+            <button
+              className="playflix-button"
+              data-label="Next Lesson"
               onClick={() => {
-                  nextLesson();
-                  setTimeUp(false);
-              }}></button>
+                nextLesson();
+                setTimeUp(false);
+              }}
+            ></button>
           )}
         </section>
       </section>
-      </>
-    )
+    </>
+  );
 }

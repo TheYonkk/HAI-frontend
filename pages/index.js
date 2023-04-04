@@ -43,7 +43,8 @@ export default function Home() {
   //   }
   // };
 
-  const lessonList = ["A", "B", "F"];
+  // R, S ommitted for bad image
+  const lessonList = "ABCDEFGHIKLMNOPQTUVWXY".split('');
 
   return (
     <>
