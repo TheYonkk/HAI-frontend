@@ -246,6 +246,39 @@ export default function HandTracker({
               canvasRef.current.height
             );
           }
+
+          // let the user know that the backend is not working/available. Remember to write the text backwards
+          // because the image is flipped into selfie-mode in CSS
+          if (canvasRef.current && contextRef.current) {
+            contextRef.current.save();
+
+            contextRef.current.fillStyle = "rgba(0, 0, 0, 0.5)";
+            contextRef.current.fillRect(
+              0,
+              0,
+              canvasRef.current.width,
+              canvasRef.current.height
+            );
+            contextRef.current.fillStyle = "rgba(255, 255, 255, 0.75)";
+
+            // center the context and flip it horizontally
+            contextRef.current.translate(
+              canvasRef.current.width / 2,
+              canvasRef.current.height / 2
+            );
+            contextRef.current.scale(-1, 1);
+
+            // write the text
+            contextRef.current.font = "24px Arial";
+            contextRef.current.textAlign = "center";
+            contextRef.current.fillText(
+              "Error communicating with API endpoint",
+              0,
+              0
+            );
+            contextRef.current.restore();
+          }
+          
         });
     } else {
       // no hand data, so just draw the webcam image
