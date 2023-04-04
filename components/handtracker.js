@@ -297,6 +297,33 @@ export default function HandTracker({
           canvasRef.current.width,
           canvasRef.current.height
         );
+
+        // write a message that says no hand is detected at the bottom of the screen where the error bar will be
+        contextRef.current.save();
+        contextRef.current.fillStyle = "rgba(0, 0, 0, 0.5)";
+        contextRef.current.fillRect(
+          canvasRef.current.width / 4,
+          canvasRef.current.height - 40,
+          canvasRef.current.width / 2,
+          20
+        );
+        // center the context and flip it horizontally
+        contextRef.current.translate(
+          canvasRef.current.width / 2,
+          canvasRef.current.height / 2
+        );
+        contextRef.current.scale(-1, 1);
+        contextRef.current.fillStyle = "rgba(255, 255, 255, 1)";
+        contextRef.current.font = "24px Arial";
+        contextRef.current.textAlign = "center";
+        contextRef.current.fillText(
+          "No hand detected",
+          0,
+          canvasRef.current.height / 2 - 20
+        );
+        contextRef.current.restore();
+
+
       }
     }
   };
