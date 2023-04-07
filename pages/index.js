@@ -12,7 +12,7 @@ import { useState, useEffect } from "react";
 import LessonPage from "../components/lessonPage";
 
 // backend urls ranked by priority. (we should always prefer local server, as it's faster)
-export const SERVER_ADDRESSES = [ "http://127.0.0.1:8080", "http://127.0.0.1:5000", "http://68.37.226.148" ]
+export const SERVER_ADDRESSES = [ "http://127.0.0.1:8080", "http://127.0.0.1:5000", "https://api.daveyonkers.com" ]
 
 export default function Home() {
   // just using this so every keystroke doesn't send a request to the MediaPipe module
