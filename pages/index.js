@@ -11,9 +11,12 @@ import { useState, useEffect } from "react";
 // import { Switch, FormControlLabel } from "@mui/material";
 import LessonPage from "../components/lessonPage";
 
+// backend urls ranked by priority. (we should always prefer local server, as it's faster)
+export const SERVER_ADDRESSES = [ "http://127.0.0.1:8080", "http://127.0.0.1:5000", "http://68.37.226.148" ]
+
 export default function Home() {
   // just using this so every keystroke doesn't send a request to the MediaPipe module
-  const [apiEndpoint, setApiEndpoint] = useState("http://127.0.0.1:5000");
+  const [serverAddressIndex, setServerAddressIndex] = useState(0);
   const [gestureAccepted, setGestureAccepted] = useState(false);
   const [showHandMarkers, setShowHandMarkers] = useState(false);
   const [handDominant, setHandDominant] = useState(null);
@@ -28,6 +31,31 @@ export default function Home() {
   const onSuccess = () => {
     setGestureAccepted(true);
   };
+
+  // upon first load, try to connect to the local servers. if it fails, keep trying to connect to the servers in the list until
+  // the last server is reached. The last server if the remote server, which is the slowest, but it should be up.
+  useEffect(() => {
+    const tryConnect = async () => {
+      try {
+        const response = await fetch(SERVER_ADDRESSES[serverAddressIndex]);
+        if (response.ok) {
+          console.log("connected to backend server: ", SERVER_ADDRESSES[serverAddressIndex]);
+        } else {
+          console.warn("failed to connect to backend server", SERVER_ADDRESSES[serverAddressIndex]);
+          if (serverAddressIndex < SERVER_ADDRESSES.length - 1){
+            setServerAddressIndex(serverAddressIndex + 1);
+          }
+        }
+      } catch (error) {
+        console.warn("failed to connect to backend server", SERVER_ADDRESSES[serverAddressIndex]);
+        if (serverAddressIndex < SERVER_ADDRESSES.length - 1){
+          setServerAddressIndex(serverAddressIndex + 1);
+        }
+      }
+    }
+    tryConnect();
+  }, [serverAddressIndex]);
+
 
   // const chooseHand = (handDominant) => {
   //   setHandDominant(handDominant);
@@ -108,7 +136,7 @@ export default function Home() {
         handDominant={handDominant} 
         lessonList={lessonList} 
         onSuccess={onSuccess} 
-        apiEndpoint={apiEndpoint} 
+        apiEndpoint={SERVER_ADDRESSES[serverAddressIndex]} 
         showHandMarkers={showHandMarkers} 
         setShowHandMarkers={setShowHandMarkers} 
         gestureAccepted={gestureAccepted}
