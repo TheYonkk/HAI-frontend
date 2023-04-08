@@ -5,7 +5,7 @@ import styles from "./lessonDemo.module.css";
 export default function LessonDemo({lessonTitle, handDominant}) {
 
     // const imageSrc = `/images/hands_annotated/${lessonTitle.toLowerCase()}.jpg`;
-    const imageSrc = `/images/hands/${lessonTitle.toLowerCase()}.jpg`;
+    //const imageSrc = `/images/hands/${lessonTitle.toLowerCase()}.jpg`;
 
     return (<>
             <h2 className={styles.title}>{lessonTitle}</h2>
@@ -21,8 +21,9 @@ export default function LessonDemo({lessonTitle, handDominant}) {
                 <video src={this.props.src} />
                 </React.Fragment>*/
              }
-             <img src={imageSrc} width='100%' className={handDominant ? '' : styles.flipImage} alt={`A hand showing the ASL sign of ${lessonTitle}`}/>
-            {/* <video width='100%' autoPlay muted loop className={handDominant ? styles.flipVid : ''} src={videoLink} /> */}
+             <script src="../components/hand3d.js" type="module"></script>
+             {/* <img src={imageSrc} width='100%' className={handDominant ? '' : styles.flipImage} alt={`A hand showing the ASL sign of ${lessonTitle}`}/>
+            <video width='100%' autoPlay muted loop className={handDominant ? styles.flipVid : ''} src={videoLink} /> */}
         </>
     )
 }
