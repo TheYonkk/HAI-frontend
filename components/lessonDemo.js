@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import styles from "./lessonDemo.module.css";
+import Script from 'next/script';
 
 export default function LessonDemo({lessonTitle, handDominant}) {
 
@@ -21,7 +22,11 @@ export default function LessonDemo({lessonTitle, handDominant}) {
                 <video src={this.props.src} />
                 </React.Fragment>*/
              }
-             <script src="../components/hand3d.js" type="module"></script>
+             {/* <script src="hand3d.js" type="module"></script> */}
+             <Script
+                src="hand3d.js"
+                strategy="lazyOnload"
+            />
              {/* <img src={imageSrc} width='100%' className={handDominant ? '' : styles.flipImage} alt={`A hand showing the ASL sign of ${lessonTitle}`}/>
             <video width='100%' autoPlay muted loop className={handDominant ? styles.flipVid : ''} src={videoLink} /> */}
         </>
