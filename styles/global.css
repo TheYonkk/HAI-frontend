@@ -316,14 +316,14 @@ h1 {
   }
 } */
 
-.lessonList {
-  /* display: flex;
+/* .lessonList {
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  width: 70%; */
-}
+  width: 70%; 
+} */
 
 .lessonGrid {
   display: flex;
@@ -346,15 +346,15 @@ h1 {
   padding: 10px;
   border-radius: 10px;
   text-align: center;
+  cursor: pointer;
+  transition: all 0.5s;
 }
 
 .lessonSquare:hover {
   background-color: #589fc4;
   color: #fff;
-  cursor: pointer;
-  transition: all 0.5s;
-}
 
+}
 .lessonSquare h3 {
   margin: 0;
 }
@@ -364,6 +364,11 @@ h1 {
   height: 80%;
   margin: 0;
   display: inline;
+  transition: all 0.5s;
+}
+
+.lessonSquare:hover img {
+  filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%) hue-rotate(84deg) brightness(104%) contrast(101%);
 }
 
 
@@ -412,6 +417,7 @@ h1 {
 
 .nextButton:hover {
   background: #dec868;
+  transition: all 0.5s;
 }
 
 
@@ -526,3 +532,22 @@ h1 {
     color: white;
  }
 } */
+
+
+.backArrow {
+  position: absolute;
+  top: 30px;
+  left: 2.5rem;
+  cursor: pointer;
+  z-index: 5;
+  fill: #4D5472;
+  transition: all 0.5s;
+}
+
+.backArrow:hover {
+  fill: #589fc4;
+}
+
+.filter-green:hover{
+  filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%) hue-rotate(84deg) brightness(104%) contrast(101%);
+}

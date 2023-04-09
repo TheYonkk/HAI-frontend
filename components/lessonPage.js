@@ -20,6 +20,7 @@ export default function LessonPage({
   gestureAccepted,
   setGestureAccepted,
   index,
+  setStartLesson,
 }) {
   const [lesson, setLesson] = useState(index);
   const [timeUp, setTimeUp] = useState(false);
@@ -56,6 +57,10 @@ export default function LessonPage({
   return (
     <>
       <h1>Lesson {lesson + 1}: Alphabets</h1>
+      {/* <img src="/images/icons/arrow.png" alt="back arrow" className="backArrow"/> */}
+      <svg width="30" height="30" viewBox="0 0 41 38" xmlns="http://www.w3.org/2000/svg" className="backArrow" onClick={() => setStartLesson(false)}>
+      <path d="M38.0015 21.7302C39.3822 21.7302 40.5015 20.6109 40.5015 19.2302C40.5015 17.8495 39.3822 16.7302 38.0015 16.7302V21.7302ZM1.2337 17.4625C0.257387 18.4388 0.257387 20.0217 1.2337 20.998L17.1436 36.9079C18.1199 37.8842 19.7028 37.8842 20.6791 36.9079C21.6554 35.9316 21.6554 34.3487 20.6791 33.3724L6.537 19.2302L20.6791 5.08809C21.6554 4.11178 21.6554 2.52887 20.6791 1.55256C19.7028 0.576244 18.1199 0.576244 17.1436 1.55256L1.2337 17.4625ZM38.0015 16.7302L3.00146 16.7302V21.7302L38.0015 21.7302V16.7302Z"/>
+      </svg>
       <section className="lesson">
         <section className="halfbox">
           {handDominant !== null && (

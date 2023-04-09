@@ -13,7 +13,7 @@ export default function LessonSquare({ lessonId, onClick }) {
     return (
         <div onClick={onClick} className="lessonSquare">
           <h3>{lessonId}</h3>
-          <img src={`/images/icons/${lessonId}.png`} alt={`${lessonId}`} />
+          <img src={`/images/icons/${lessonId}.png`} alt={`${lessonId}`} className="lessonimg"/>
         </div> 
     );
   };

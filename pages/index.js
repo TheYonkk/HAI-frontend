@@ -162,7 +162,8 @@ export default function Home() {
         setShowHandMarkers={setShowHandMarkers} 
         gestureAccepted={gestureAccepted}
         setGestureAccepted={setGestureAccepted}
-        index={lessonId}/>}
+        index={lessonId}
+        setStartLesson={setStartLesson}/>}
       
       {/* <h1>Lesson {lesson + 1}: Alphabets</h1>
       <section className="lesson">
