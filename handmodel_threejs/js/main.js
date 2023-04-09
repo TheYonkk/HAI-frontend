@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
 
-const righthandUrl = new URL('../models/righthand_poseforawhile.glb', import.meta.url);
+const righthandUrl = '../models/righthand_poseforawhile.glb';
 
 const renderer = new THREE.WebGLRenderer();
 
@@ -38,7 +38,7 @@ scene.add(grid);
 const assetLoader = new GLTFLoader();
 
 let mixer;
-assetLoader.load(righthandUrl.href, function(gltf) {
+assetLoader.load(righthandUrl, function(gltf) {
     const model = gltf.scene;
     scene.add(model);
     mixer = new THREE.AnimationMixer(model);

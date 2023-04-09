@@ -80,5 +80,6 @@ export default function LessonDemo({lessonTitle, handDominant}) {
 //     renderer.setSize(window.innerWidth, window.innerHeight);
 // });
     return(<>
+        <primitive object={scene} />
         </>)
 }

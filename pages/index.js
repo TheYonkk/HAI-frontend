@@ -147,7 +147,6 @@ export default function Home() {
         <section className="halfbox">
           {handDominant !== null && (
             <LessonDemo
-              videoLink={`/images/lesson${lesson + 1}.mov`}
               lessonTitle={lessonList[lesson]}
               handDominant={handDominant}
             />
