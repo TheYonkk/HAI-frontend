@@ -10,7 +10,7 @@ export default function LessonDemo({lessonTitle, handDominant}) {
 
     // const imageSrc = `/images/hands_annotated/${lessonTitle.toLowerCase()}.jpg`;
     //const imageSrc = `/images/hands/${lessonTitle.toLowerCase()}.jpg`;
-    const righthandUrl = new URL('/3Dmodel/righthand_poseforawhile.glb', import.meta.url);
+    const righthandUrl = '/3Dmodel/righthand_poseforawhile.glb';
 
     const renderer = new THREE.WebGLRenderer();
 
@@ -46,7 +46,7 @@ export default function LessonDemo({lessonTitle, handDominant}) {
     const assetLoader = new GLTFLoader();
 
     let mixer;
-    assetLoader.load(righthandUrl.href, function(gltf) {
+    assetLoader.load(righthandUrl, function(gltf) {
         const model = gltf.scene;
         scene.add(model);
         mixer = new THREE.AnimationMixer(model);
