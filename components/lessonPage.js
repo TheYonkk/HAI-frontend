@@ -19,8 +19,9 @@ export default function LessonPage({
   setShowHandMarkers,
   gestureAccepted,
   setGestureAccepted,
+  index,
 }) {
-  const [lesson, setLesson] = useState(0);
+  const [lesson, setLesson] = useState(index);
   const [timeUp, setTimeUp] = useState(false);
 
   const nextLesson = () => {
@@ -36,7 +37,7 @@ export default function LessonPage({
   useEffect(() => {
     let time = null;
     if (!timeUp) {
-      time = setTimeout(() => setTimeUp(true), 10000);
+      time = setTimeout(() => setTimeUp(true), 30000);
     }
     return () => clearTimeout(time);
   }, [timeUp]);
@@ -47,7 +48,7 @@ export default function LessonPage({
       timer = setTimeout(() => {
         console.log("next lesson");
         nextLesson();
-      }, 5000);
+      }, 10000);
     }
     return () => clearTimeout(timer);
   }, [gestureAccepted, nextLesson]);

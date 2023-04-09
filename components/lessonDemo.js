@@ -5,7 +5,7 @@ import styles from "./lessonDemo.module.css";
 export default function LessonDemo({lessonTitle, handDominant}) {
 
     // const imageSrc = `/images/hands_annotated/${lessonTitle.toLowerCase()}.jpg`;
-    const imageSrc = `/images/hands/${lessonTitle.toLowerCase()}.jpg`;
+    const imageSrc = `/images/hands/${lessonTitle}.jpg`;
 
     return (<>
             <h2 className={styles.title}>{lessonTitle}</h2>

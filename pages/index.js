@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 // import Button from "@mui/material/Button";
 // import { Switch, FormControlLabel } from "@mui/material";
 import LessonPage from "../components/lessonPage";
+import LessonSquare from "../components/lessonSquare";
 
 // backend urls ranked by priority. (we should always prefer local server, as it's faster)
 export const SERVER_ADDRESSES = [ "http://127.0.0.1:8080", "http://127.0.0.1:5000", "https://api.daveyonkers.com" ]
@@ -22,11 +23,12 @@ export default function Home() {
   const [handDominant, setHandDominant] = useState(null);
   // const [lesson, setLesson] = useState(0);
   const [startLesson, setStartLesson] = useState(false);
+  const [lessonId, setLessonId] = useState(null);
 
-  useEffect(() => {
-    const item = localStorage.getItem('handDominant');
-    item ? setHandDominant(item) : setHandDominant(null);
-  }, [])
+  // useEffect(() => {
+  //   const item = localStorage.getItem('handDominant');
+  //   item ? setHandDominant(item) : setHandDominant(null);
+  // }, [])
  
   const onSuccess = () => {
     setGestureAccepted(true);
@@ -74,13 +76,21 @@ export default function Home() {
   // R, S ommitted for bad image
   const lessonList = "ABCDEFGHIKLMNOPQTUVWXY".split('');
 
+  const handleLessonClick = (index) => {
+    // Handle the click event for LessonSquare here
+    // You can customize this part to directly render the content of the lesson on the home page
+    // console.log(`LessonSquare clicked: ${lessonId}`);
+    setStartLesson(true);
+    setLessonId(index);
+  };
+
   return (
     <>
       {/* <Layout pageName='Lesson One: Alphabets'> */}
       <Head>
         <title>Talk to the Hand</title>
       </Head>
-      {!startLesson && <section className="landing">
+      {!handDominant && <section className="landing">
         <div className="landTitle">
           <h1 className="title">Talk to the Hand</h1>
           <p className="tagline">An ASL Learning Tool</p>
@@ -119,18 +129,29 @@ export default function Home() {
             onClick={() => {
               localStorage.setItem('handDominant', JSON.stringify(true));
               setHandDominant(true);
-              setStartLesson(true);
+              //setStartLesson(true);
             }}></div>
             <div id="right"
             onClick={() => {
               localStorage.setItem('handDominant', JSON.stringify(false));
               setHandDominant(false);
-              setStartLesson(true);
+              //setStartLesson(true);
             }}></div>
           </div>
         </div>
         {/* </div> */}
       </section>}
+
+      {(!startLesson && handDominant != null) && <section className="lessonList">
+        <h1>Lessons List</h1>
+        <div className="lessonGrid">
+          {lessonList.map((lesson, index) => (
+            <LessonSquare key={index} lessonId={lesson} onClick={() => handleLessonClick(index)} />
+          ))}
+        </div>
+      </section>}
+
+
       {/* <LeftRightModal chooseHand={chooseHand} /> */}
       {startLesson && <LessonPage 
         handDominant={handDominant} 
@@ -140,7 +161,8 @@ export default function Home() {
         showHandMarkers={showHandMarkers} 
         setShowHandMarkers={setShowHandMarkers} 
         gestureAccepted={gestureAccepted}
-        setGestureAccepted={setGestureAccepted}/>}
+        setGestureAccepted={setGestureAccepted}
+        index={lessonId}/>}
       
       {/* <h1>Lesson {lesson + 1}: Alphabets</h1>
       <section className="lesson">

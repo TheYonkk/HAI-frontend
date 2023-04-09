@@ -316,6 +316,57 @@ h1 {
   }
 } */
 
+.lessonList {
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  width: 70%; */
+}
+
+.lessonGrid {
+  display: flex;
+  flex-flow: row wrap;
+  /* display: grid; */
+  /* grid-template-columns: repeat(5, 1fr); */
+  gap: .5rem;
+  margin: 0 auto;
+  width: 80%;
+  align-items: center;
+  justify-items: center;
+}
+
+.lessonSquare {
+  display: block;
+  width: 150px;
+  height: 150px;
+  background-color: lightblue;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.lessonSquare:hover {
+  background-color: #589fc4;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.lessonSquare h3 {
+  margin: 0;
+}
+
+.lessonSquare img {
+  width: 80%;
+  height: 80%;
+  margin: 0;
+  display: inline;
+}
+
+
 
 
 /*lesson page*/
@@ -362,6 +413,7 @@ h1 {
 .nextButton:hover {
   background: #dec868;
 }
+
 
 .playflix-button {
   /* padding: 20px; */
@@ -414,7 +466,7 @@ h1 {
   /* text-align: left; */
   padding: 0.25em;
   text-indent: 0.5em;
-  animation: playflix 5s linear infinite forwards;
+  animation: playflix 10s linear infinite forwards;
 }
 .playflix-button:after {
   content: attr(data-label);
