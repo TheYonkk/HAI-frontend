@@ -10,7 +10,7 @@ export default function LessonDemo({lessonTitle, handDominant}) {
 
     // const imageSrc = `/images/hands_annotated/${lessonTitle.toLowerCase()}.jpg`;
     //const imageSrc = `/images/hands/${lessonTitle.toLowerCase()}.jpg`;
-    const righthandUrl = new URL(`/3Dmodels/righthand_poseforawhile.glb`, import.meta.url);
+    const righthandUrl = new URL('/3Dmodel/righthand_poseforawhile.glb', import.meta.url);
 
     const renderer = new THREE.WebGLRenderer();
 
