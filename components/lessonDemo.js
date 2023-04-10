@@ -16,7 +16,8 @@ export default function LessonDemo({lessonTitle, handDominant}) {
 
     renderer.setSize(window.innerWidth, window.innerHeight);
 
-    document.body.appendChild(renderer.domElement);
+    document.querySelector(".halfbox").appendChild(renderer.domElement);
+    // document.body.appendChild(renderer.domElement);
 
     const scene = new THREE.Scene();
 

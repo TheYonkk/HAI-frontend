@@ -52,13 +52,26 @@ export default function LessonPage({
     return () => clearTimeout(timer);
   }, [gestureAccepted, nextLesson]);
 
+
+  const [isElementVisible, setIsElementVisible] = useState(false);
+
+  useEffect(() => {
+    const loadtimer = setTimeout(() => {
+      setIsElementVisible(true);
+    }, 2000);
+    return () => {
+      clearTimeout(loadtimer);
+    };
+  }, []);
+
+
   return (
     <>
       <h1>Lesson {lesson + 1}: Alphabets</h1>
       <section className="lesson">
         <section className="halfbox">
           {handDominant !== null && (
-            <LessonDemo
+            isElementVisible && <LessonDemo
               lessonTitle={lessonList[lesson]}
               handDominant={handDominant}
             />
