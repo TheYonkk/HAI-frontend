@@ -51,7 +51,7 @@ export default function LessonDemo({lessonTitle, handDominant}) {
         const clips = gltf.animations;
 
         // Play a certain ASL
-        const clip = THREE.AnimationClip.findByName(clips, 'ASL_b'); //we current have ASL_b ASL_f
+        const clip = THREE.AnimationClip.findByName(clips, 'ASL_a'); //we current have ASL_b ASL_f
         const action = mixer.clipAction(clip);
 
         // if we use righthand_250, uncomment the following lines for playing once
@@ -72,12 +72,7 @@ export default function LessonDemo({lessonTitle, handDominant}) {
     }
     renderer.setAnimationLoop(animate);
 
-// window.addEventListener('resize', function() {
-//     camera.aspect = window.innerWidth / window.innerHeight;
-//     camera.updateProjectionMatrix();
-//     renderer.setSize(window.innerWidth, window.innerHeight);
-// });
     return(<>
-        <primitive object={scene} />
+        <primitive object = {model}  />
         </>)
 }
