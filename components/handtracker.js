@@ -129,9 +129,12 @@ export default function HandTracker({
             (async () => {
               const json = await response.json();
 
+              // pull out the gesture from the JSON response if it exists
+              const gesture = json.gesture ? json.gesture.toUpperCase() : null;
+
               // if the API returns true, then the gesture was accepted
               if (json && json.accepted === "True") {
-                onSuccess?.(); // call if onSuccess is defined
+                onSuccess?.(gesture); // call if onSuccess is defined
               }
               // console.log(json);
 

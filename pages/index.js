@@ -29,10 +29,7 @@ export default function Home() {
   //   const item = localStorage.getItem('handDominant');
   //   item ? setHandDominant(item) : setHandDominant(null);
   // }, [])
- 
-  const onSuccess = () => {
-    setGestureAccepted(true);
-  };
+
 
   // upon first load, try to connect to the local servers. if it fails, keep trying to connect to the servers in the list until
   // the last server is reached. The last server if the remote server, which is the slowest, but it should be up.
@@ -75,6 +72,16 @@ export default function Home() {
 
   // R, S ommitted for bad image
   const lessonList = "ABCDEFGHIKLMNOPQTUVWXY".split('');
+
+  const onSuccess = (gesture) => {
+    // console.log("gesture: ", gesture, " Success! 🎉");
+    // console.log(gesture === lessonList[lessonId]);
+    if (gesture === null || gesture === undefined || gesture === lessonList[lessonId]){
+      if (!gestureAccepted)
+        setGestureAccepted(true);
+    }
+    
+  };
 
   const handleLessonClick = (index) => {
     // Handle the click event for LessonSquare here
