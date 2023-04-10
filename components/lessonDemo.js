@@ -44,8 +44,9 @@ export default function LessonDemo({lessonTitle, handDominant}) {
     const assetLoader = new GLTFLoader();
 
     let mixer;
+    let model;
     assetLoader.load(righthandUrl, function(gltf) {
-        const model = gltf.scene;
+        model = gltf.scene;
         scene.add(model);
         mixer = new THREE.AnimationMixer(model);
         const clips = gltf.animations;
