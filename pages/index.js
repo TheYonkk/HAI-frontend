@@ -76,10 +76,11 @@ export default function Home() {
   const onSuccess = (gesture) => {
     // console.log("gesture: ", gesture, " Success! 🎉");
     // console.log(gesture === lessonList[lessonId]);
-    if (gesture === null || gesture === undefined || gesture === lessonList[lessonId]){
-      if (!gestureAccepted)
-        setGestureAccepted(true);
-    }
+    // if (gesture === null || gesture === undefined || gesture === lessonList[lessonId]){
+    //   if (!gestureAccepted)
+    //     setGestureAccepted(true);
+    // }
+    setGestureAccepted(true);
     
   };
 
