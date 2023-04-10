@@ -90,7 +90,7 @@ export default function Home() {
       <Head>
         <title>Talk to the Hand</title>
       </Head>
-      {!handDominant && <section className="landing">
+      {handDominant === null && <section className="landing">
         <div className="landTitle">
           <h1 className="title">Talk to the Hand</h1>
           <p className="tagline">An ASL Learning Tool</p>
@@ -142,7 +142,7 @@ export default function Home() {
         {/* </div> */}
       </section>}
 
-      {(!startLesson && handDominant != null) && <section className="lessonList">
+      {(!startLesson && handDominant !== null) && <section className="lessonList">
         <h1>Lessons List</h1>
         <div className="lessonGrid">
           {lessonList.map((lesson, index) => (
