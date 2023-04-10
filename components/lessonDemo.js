@@ -10,7 +10,7 @@ export default function LessonDemo({lessonTitle, handDominant}) {
 
     // const imageSrc = `/images/hands_annotated/${lessonTitle.toLowerCase()}.jpg`;
     //const imageSrc = `/images/hands/${lessonTitle.toLowerCase()}.jpg`;
-    const righthandUrl = '/3Dmodel/righthand_poseforawhile.glb';
+    const righthandUrl = '/3Dmodel/righthand_withcolor.glb';
 
     const renderer = new THREE.WebGLRenderer();
 
@@ -31,14 +31,12 @@ export default function LessonDemo({lessonTitle, handDominant}) {
 
     const orbit = new OrbitControls(camera, renderer.domElement);
 
-    camera.position.set(10, 10, 10);
+    camera.position.set(0, 1.5, 2);
     orbit.update();
 
     // light still has but (tried ambient, rect, point, no one works)
-    // const light = new THREE.PointLight( 0xff0000, 1, 100 );
-    // light.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xff0040 } ) ) );
-    // light.position.set( 50, 50, 50 );
-    // scene.add( light );
+    const light = new THREE.AmbientLight( 0xffffff ); // soft white light
+    scene.add( light );
 
     const grid = new THREE.GridHelper(30, 30);
     scene.add(grid);
