@@ -7,6 +7,7 @@ import {
   lerp,
 } from "@mediapipe/drawing_utils";
 import styles from "./handtracker.module.scss";
+import { ThreeCircles } from "react-loader-spinner";
 
 const MAX_HAND_ERROR = 3.5; // max error for the error bar
 
@@ -101,6 +102,10 @@ export default function HandTracker({
    * @param {results} results
    */
   const onResults = (results) => {
+
+    // once we get something from mediapipe, everything is set up and ready to go
+    setLoaded(true);
+
     // send hand data to API endpoint if at least one hand is detected
     if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
       // remove image data from results
@@ -122,7 +127,7 @@ export default function HandTracker({
         body: JSON.stringify(resultsNoImage),
       })
         .then((response) => {
-          // successfully communicated with API endpoint
+
           const contentType = response.headers.get("content-type");
           if (contentType && contentType.indexOf("application/json") !== -1) {
             // read async JSON response by creating async function and calling it
@@ -169,8 +174,8 @@ export default function HandTracker({
                       contextRef.current,
                       landmarks,
                       HAND_CONNECTIONS,
-                      { 
-                        color: "rgba(102, 163, 196, 0.75)", 
+                      {
+                        color: "rgba(102, 163, 196, 0.75)",
                         lineWidth: 2,
                       }
                     );
@@ -281,7 +286,6 @@ export default function HandTracker({
             );
             contextRef.current.restore();
           }
-          
         });
     } else {
       // no hand data, so just draw the webcam image
@@ -325,8 +329,6 @@ export default function HandTracker({
           canvasRef.current.height / 2 - 20
         );
         contextRef.current.restore();
-
-
       }
     }
   };
@@ -349,6 +351,27 @@ export default function HandTracker({
           height={canvasHeight}
         />
       </div>
+      {/* show a spinner while the model is loading */}
+      {!loaded && (
+        <div class={styles.loading}>
+          
+          <ThreeCircles
+          height="100"
+          width="100"
+          color="#4fa94d"
+          wrapperStyle={{padding: "15px"}}
+          wrapperClass=""
+          visible={!loaded}
+          ariaLabel="three-circles-rotating"
+          outerCircleColor="rgb(78, 85, 112)"
+          innerCircleColor="rgb(100, 130, 163)"
+          middleCircleColor="rgb(123, 176, 213)"
+        />
+        <div class={styles.message}>Loading</div>
+
+        </div>
+        
+      )}
     </div>
   );
 }

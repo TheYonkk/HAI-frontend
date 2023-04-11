@@ -55,4 +55,25 @@
     transform: scale(-1, 1); /* Flip the canvas horizontally */
   }
 
+  .loading {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    align-items: center;
+    backface-visibility: hidden;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 1s;
+    
+  
+    .message {
+      font-size: x-large;
+    }
+  
+  }
+
 }

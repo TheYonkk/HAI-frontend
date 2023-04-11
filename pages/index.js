@@ -35,7 +35,6 @@ export default function Home() {
   const [lessonId, setLessonId] = useState(null);
 
   const router = useRouter();
-  console.log("query:", router.query);
   // if there was a lesson index in the url, set it as the lesson and just go there
   useEffect(() => {
     if (router.query.lessonId && router.query.handDominant) {
