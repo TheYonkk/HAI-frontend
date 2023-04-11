@@ -96,7 +96,7 @@ export default function LessonPage({
               />
             }
             label="Show Hand Markers"
-            sx={{ position: "absolute", top: "20px", color: "white" }}
+            sx={{ position: "absolute", top: "20px", color: "white", textShadow: "2px 2px 10px rgba(0,0,0,0.7)" }}
           />
           {timeUp && !gestureAccepted && (
             <button
