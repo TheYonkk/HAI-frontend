@@ -4,6 +4,7 @@
 import HandTracker from "../components/handtracker";
 // import styles from "./handtest.module.scss";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import LessonDemo from "../components/lessonDemo";
 import HandCheck from "../components/handcheck";
 // import LeftRightModal from "../components/leftright";
@@ -25,14 +26,21 @@ export default function LessonPage({
   const [lesson, setLesson] = useState(index);
   const [timeUp, setTimeUp] = useState(false);
 
+  const router = useRouter();
+
   const nextLesson = () => {
     setGestureAccepted(false);
     // console.log(lesson);
+    let nextLesson = lesson + 1;
     if (lesson === lessonList.length - 1) {
-      setLesson(0);
-    } else {
-      setLesson(lesson + 1);
+      nextLesson = 0;
     }
+    setLesson(nextLesson);
+
+    // save progress in the URL bar in case the user needs to reload
+    router.push({
+      query: { lessonId: nextLesson, handDominant: handDominant },
+    });
   };
 
   useEffect(() => {

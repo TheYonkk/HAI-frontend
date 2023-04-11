@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useRouter } from "next/router";
 // import Layout, { siteTitle } from "../components/layout";
 // import utilStyles from "../styles/utils.module.css";
 // import HandTracker from "../components/handtracker";
@@ -32,6 +33,24 @@ export default function Home() {
   // const [lesson, setLesson] = useState(0);
   const [startLesson, setStartLesson] = useState(false);
   const [lessonId, setLessonId] = useState(null);
+
+  const router = useRouter();
+  console.log("query:", router.query);
+  // if there was a lesson index in the url, set it as the lesson and just go there
+  useEffect(() => {
+    if (router.query.lessonId && router.query.handDominant) {
+      // console.log("lessonId:", parseInt(router.query.lessonId));
+      // console.log("handDominant:", router.query.handDominant == 'true');
+
+
+      // wait a little while before starting the lesson. this avoids some weird mediapipe initialization behavior
+      setTimeout(() => {
+        setLessonId(parseInt(router.query.lessonId));
+        setHandDominant(router.query.handDominant == 'true');
+        setStartLesson(true);
+      }, 2500);
+    }
+  }, [router.query]);
 
   // useEffect(() => {
   //   const item = localStorage.getItem('handDominant');
