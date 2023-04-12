@@ -551,3 +551,19 @@ h1 {
 .filter-green:hover{
   filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%) hue-rotate(84deg) brightness(104%) contrast(101%);
 }
+
+.textbox {
+  position: absolute;
+  top: 10%;
+  right: 5%;
+  font-size: 20px;
+  text-align: center;
+  background-color: rgba(35, 143, 201, 0.7);
+  border-radius: 10px;
+  color: #fff;
+  width: 200px
+}
+
+.success {
+  background-color: rgba(62, 176, 84, 0.7) !important;
+}

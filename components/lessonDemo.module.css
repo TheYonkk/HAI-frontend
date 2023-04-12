@@ -47,3 +47,7 @@
 .flipImage {
     transform: scaleX(-1);
 }
+
+.success {
+    background-color: #3eb054 !important;
+}

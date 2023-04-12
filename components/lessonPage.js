@@ -30,36 +30,33 @@ export default function LessonPage({
 
   const nextLesson = () => {
     setGestureAccepted(false);
-    // console.log(lesson);
-    let nextLesson = lesson + 1;
+    // console.log(gestureAccepted);
+    clearTimeout(skiptime);
+    clearTimeout(nexttimer);
     if (lesson === lessonList.length - 1) {
-      nextLesson = 0;
+      setLesson(0);
+    } else {
+      setLesson(lesson + 1);
     }
-    setLesson(nextLesson);
-
-    // save progress in the URL bar in case the user needs to reload
-    router.push({
-      query: { lessonId: nextLesson, handDominant: handDominant },
-    });
   };
 
+  let skiptime = null;
   useEffect(() => {
-    let time = null;
     if (!timeUp) {
-      time = setTimeout(() => setTimeUp(true), 30000);
+      skiptime = setTimeout(() => setTimeUp(true), 30000);
     }
-    return () => clearTimeout(time);
+    return () => clearTimeout(skiptime);
   }, [timeUp]);
 
+  let nexttimer = null;
   useEffect(() => {
-    let timer = null;
     if (gestureAccepted) {
-      timer = setTimeout(() => {
+      nexttimer = setTimeout(() => {
         console.log("next lesson");
         nextLesson();
       }, 10000);
     }
-    return () => clearTimeout(timer);
+    return () => clearTimeout(nexttimer);
   }, [gestureAccepted, nextLesson]);
 
   return (
@@ -93,6 +90,7 @@ export default function LessonPage({
                 ? `Congratulations! You signed “${lessonList[lesson]}”!`
                 : "Try to minimize the error bar on the bottom."
             }
+            gestureAccepted={gestureAccepted}
           />
 
           <FormControlLabel
