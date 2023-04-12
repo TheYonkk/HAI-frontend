@@ -398,8 +398,9 @@ h1 {
   align-content: center;
   flex-wrap: wrap;
   position: relative;
-  margin: 0 5%;
-  border-radius: 3%;
+  margin: 0;
+  border: 20px solid transparent;
+  border-radius: 30px;
 }
 
 .nextButton {
@@ -432,7 +433,8 @@ h1 {
   height: 3.5em;
   /* border-radius: 0.25em; */
   /* background-color: #2688a1; */
-  background-color: #589fc4;
+  /* background-color: #589fc4; */
+  background-color: #6fad73;
   color: #fff;
   overflow: hidden;
   appearance: none;
@@ -443,7 +445,7 @@ h1 {
 }
 
 .playflix-button:hover {
-  background-color: #196994;
+  background-color: #156b26;
 }
 /* .playflix-button:active {
   color: #171332;
@@ -493,11 +495,13 @@ h1 {
 @keyframes playflix {
   0% {
     width: 0%;
-    background-color: #36bee0;
+    /* background-color: #36bee0; */
+    background-color: #3eb054;
  }
   100% {
     width: calc(100% + .5em);
-    background-color: #36bee0;
+    /* background-color: #36bee0; */
+    background-color: #3eb054;
  }
   /* 89.5%, 100% {
     width: calc(100% + .5em);
@@ -566,4 +570,9 @@ h1 {
 
 .success {
   background-color: rgba(62, 176, 84, 0.7) !important;
+}
+
+.successBorder {
+  box-sizing: border-box !important;
+  border: 20px solid rgba(62, 176, 84, 0.7) !important; 
 }

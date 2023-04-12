@@ -75,7 +75,7 @@ export default function LessonPage({
             />
           )}
         </section>
-        <section className="halfbox">
+        <section className={`halfbox ${gestureAccepted ? 'successBorder' : ''}`}>
           <HandTracker
             canvasWidth={1280}
             canvasHeight={720}
